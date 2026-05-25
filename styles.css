@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#mandelbrot {
+    flex: 1;        
+    height: 100%;
+    display: block;
+}
+
+#sidebar {
+    width: 420px;
+    display: flex;
+    flex-direction: column;
+    background: #961c1c;
+}
+
+#info {
+    padding: 10px;
+    background: #53606e;
+}
+
+#julia {
+    flex: 1;        
+    width: 100%;
+    background: #29a161;
+}

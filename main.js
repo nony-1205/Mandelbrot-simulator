@@ -50,11 +50,11 @@ let startX= 0;
 let startY= 0;
 
 
-const canvas= document.getElementById('c')
+const canvas= document.getElementById('mandelbrot')
 const gl = canvas.getContext('webgl')
 
-canvas.width=window.innerWidth
-canvas.height= window.innerHeight
+canvas.width= canvas.offsetWidth
+canvas.height= canvas.offsetHeight
 
 gl.viewport(0,0,canvas.width,canvas.height)
 
@@ -133,17 +133,10 @@ window.addEventListener('mouseup',()=>{
 canvas.addEventListener('wheel', (event)=>{
     event.preventDefault() //prevents the whole browser pg from scrolling
 
-    if (event.ctrlKey){
-        let zoomfactor= 1.05;
-        if (event.deltaY<0){
-            zoom *= zoomfactor //zoom in when pinching out
-        }else{
-            zoom*=(1/zoomfactor) //zoom out when pinching in
-        }
-    }else{
-        offsetX+= (event.deltaX*0.005)*zoom
-        offsetY-= (event.deltaY*0.005)*zoom //ts for touchpad two finger moving or swiping not zoom
-    }
+    const delta= Math.sign(event.deltaY) //gives direction of the scroll (up or down)
+    const factor= delta > 0 ? 1/1.05 : 1.05 //if scrolling down, zoom out (divide by 1.05), if scrolling up, zoom in (multiply by 1.05)
+    zoom *= factor
+    zoom = Math.max(zoom,0.3)
 
     render() }, {passive: false}) // passive: false is needed to make preventDefault() work
 
