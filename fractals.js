@@ -3,8 +3,10 @@ function createFractal(canvasId, fragmentShaderSource) {
     const canvas= document.getElementById(canvasId)
     const gl= canvas.getContext('webgl')
 
-    canvas.width= canvas.offsetWidth
-    canvas.height= canvas.offsetHeight
+    canvas.width= canvas.parentElement.offsetWidth
+    canvas.height= canvas.parentElement.offsetHeight
+
+    console.log(canvasId, canvas.offsetWidth, canvas.offsetHeight, canvas.width, canvas.height)
 
     gl.viewport(0,0, canvas.width, canvas.height)
 
@@ -13,7 +15,7 @@ function createFractal(canvasId, fragmentShaderSource) {
     gl.compileShader(fragShader)
 
     const vertShader= gl.createShader(gl.VERTEX_SHADER)
-    gl.shaderSource(vertShader, vertexShaderSource)
+    gl.shaderSource(vertShader, vertexShader)
     gl.compileShader(vertShader)
 
     const program= gl.createProgram()
@@ -74,10 +76,12 @@ void main(){
             }
         }
         
-        float t= float(escapeIter)/ float(maxIter);
-        float r = 0.5 + 0.5*cos(6.28318 *(1.0 * t + 0.00));
-        float g = 0.5 + 0.5*cos(6.28318 * (1.0 * t +0.33));
-        float b = 0.5 + 0.5*cos(6.28318 * (1.0 * t +0.67));
+        float t= (escapeIter< maxIter)
+            ? (float(escapeIter) - log2(log2(dot(z,z))) +4.0) / float(maxIter)
+            : 0.0;
+        float r = 0.5 + 0.5*cos(6.28318 *(3.0 * t + 0.30));
+        float g = 0.5 + 0.5*cos(6.28318 * (3.0 * t +0.23));
+        float b = 0.5 + 0.5*cos(6.28318 * (3.0 * t +0.87));
 
         if (escapeIter==maxIter){
             gl_FragColor= vec4(0.0, 0.0, 0.0, 1.0); //pure black
@@ -87,13 +91,11 @@ void main(){
 }
 `
 
-
-// const vertexShader = `
-//     attribute vec2 a_pos;
-//     void main(){
-//         gl_Position = vec4(a_pos, 0.0, 1.0);}
-// `
-
+const vertexShader = `
+    attribute vec2 a_pos;
+    void main(){
+        gl_Position = vec4(a_pos, 0.0, 1.0);}
+`
 
 
 const juliaShader =`
@@ -120,10 +122,12 @@ void main(){
             }
         }
         
-        float t= float(escapeIter)/ float(maxIter);
-        float r = 0.5 + 0.5*cos(6.28318 *(1.0 * t + 0.00));
-        float g = 0.5 + 0.5*cos(6.28318 * (1.0 * t +0.33));
-        float b = 0.5 + 0.5*cos(6.28318 * (1.0 * t +0.67));
+        float t= (escapeIter< maxIter)
+            ? (float(escapeIter) - log2(log2(dot(z,z))) +4.0) / float(maxIter)
+            : 0.0;
+        float r = 0.5 + 0.5*cos(6.28318 *(3.0 * t + 0.30));
+        float g = 0.5 + 0.5*cos(6.28318 * (3.0 * t +0.23));
+        float b = 0.5 + 0.5*cos(6.28318 * (3.0 * t +0.87));
 
         if (escapeIter==maxIter){
             gl_FragColor= vec4(0.0, 0.0, 0.0, 1.0); //pure black
@@ -134,10 +138,6 @@ void main(){
 `
 
 
-const mandelbrot = createFractal('mandelbrot', mandelbrotShader)
-const julia= createFractal('julia', juliaShader)
-
-
 let zoom= 0.35;
 let offsetX= -0.5;
 let offsetY= 0.0;
@@ -146,10 +146,46 @@ let startX= 0;
 let startY= 0;
 
 
-mandelbrot.canvas.addEventListener('mousedown', (e)=>{
-    isDragging= true;
-    startX= e.clientX;
-    startY= e.clientY;
+window.addEventListener('load',() =>{
+
+    const mandelbrot = createFractal('mandelbrot', mandelbrotShader)
+    const julia= createFractal('julia', juliaShader)
+    mandelbrot.render(zoom, offsetX, offsetY)
+
+
+    // mandelbrot.canvas.addEventListener('mousedown', (e)=>{
+    //     isDragging= true;
+    //     startX= e.clientX;
+    //     startY= e.clientY;
+    // })
+
+    mandelbrot.canvas.addEventListener('mousemove', (e) =>{
+        startX= e.clientX;
+        startY= e.clientY;
+        const re= (e.clientX - mandelbrot.canvas.offsetLeft - mandelbrot.canvas.width/2) / (zoom * mandelbrot.canvas.height*0.5) +offsetX
+        const im= -((e.clientY - mandelbrot.canvas.offsetTop -mandelbrot.canvas.height/2) / (zoom * mandelbrot.canvas.height*0.5 ) + offsetY)
+
+        julia.gl.useProgram(julia.program)
+        julia.gl.uniform2f(julia.uJulia, re, im)
+        julia.render(1.0, 0.0, 0.0)
+    })
+
+    // window.addEventListener('mouseup',()=>{
+    //     isDragging=false
+    // })
 })
 
-mandelbrot.canvas.addEventListener('mousemove', (e))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
