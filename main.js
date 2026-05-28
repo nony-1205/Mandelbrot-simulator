@@ -129,16 +129,16 @@ window.addEventListener('mouseup',()=>{
     isDragging=false})
 
 
-//for zooming using touchpad
-canvas.addEventListener('wheel', (event)=>{
-    event.preventDefault() //prevents the whole browser pg from scrolling
+// //for zooming using touchpad
+// canvas.addEventListener('wheel', (event)=>{
+//     event.preventDefault() //prevents the whole browser pg from scrolling
 
-    const delta= Math.sign(event.deltaY) //gives direction of the scroll (up or down)
-    const factor= delta > 0 ? 1/1.05 : 1.05 //if scrolling down, zoom out (divide by 1.05), if scrolling up, zoom in (multiply by 1.05)
-    zoom *= factor
-    zoom = Math.max(zoom,0.3)
+//     const delta= Math.sign(event.deltaY) //gives direction of the scroll (up or down)
+//     const factor= delta > 0 ? 1/1.05 : 1.05 //if scrolling down, zoom out (divide by 1.05), if scrolling up, zoom in (multiply by 1.05)
+//     zoom *= factor
+//     zoom = Math.max(zoom,0.3)
 
-    render() }, {passive: false}) // passive: false is needed to make preventDefault() work
+//     render() }, {passive: false}) // passive: false is needed to make preventDefault() work
 
 
 

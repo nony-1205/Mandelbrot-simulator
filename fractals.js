@@ -6,8 +6,6 @@ function createFractal(canvasId, fragmentShaderSource) {
     canvas.width= canvas.parentElement.offsetWidth
     canvas.height= canvas.parentElement.offsetHeight
 
-    console.log(canvasId, canvas.offsetWidth, canvas.offsetHeight, canvas.width, canvas.height)
-
     gl.viewport(0,0, canvas.width, canvas.height)
 
     const fragShader= gl.createShader(gl.FRAGMENT_SHADER)
@@ -153,26 +151,78 @@ window.addEventListener('load',() =>{
     mandelbrot.render(zoom, offsetX, offsetY)
 
 
-    // mandelbrot.canvas.addEventListener('mousedown', (e)=>{
-    //     isDragging= true;
-    //     startX= e.clientX;
-    //     startY= e.clientY;
-    // })
+    mandelbrot.canvas.addEventListener('mousedown', (e)=>{
+        isDragging= true;
+        startX= e.clientX;
+        startY= e.clientY;})
+
 
     mandelbrot.canvas.addEventListener('mousemove', (e) =>{
-        startX= e.clientX;
-        startY= e.clientY;
-        const re= (e.clientX - mandelbrot.canvas.offsetLeft - mandelbrot.canvas.width/2) / (zoom * mandelbrot.canvas.height*0.5) +offsetX
-        const im= -((e.clientY - mandelbrot.canvas.offsetTop -mandelbrot.canvas.height/2) / (zoom * mandelbrot.canvas.height*0.5 ) + offsetY)
 
-        julia.gl.useProgram(julia.program)
-        julia.gl.uniform2f(julia.uJulia, re, im)
-        julia.render(1.0, 0.0, 0.0)
-    })
+        if (!isDragging){
 
-    // window.addEventListener('mouseup',()=>{
-    //     isDragging=false
-    // })
+            const re= (e.clientX - mandelbrot.canvas.offsetLeft - mandelbrot.canvas.width/2) / (zoom * mandelbrot.canvas.height*0.5) +offsetX
+            const im= (e.clientY - mandelbrot.canvas.offsetTop -mandelbrot.canvas.height/2) / (zoom * mandelbrot.canvas.height*0.5) + offsetY
+
+            julia.gl.useProgram(julia.program)
+            julia.gl.uniform2f(julia.uJulia, re, im)
+            julia.render(1.0, 0.0, 0.0)
+        
+        }
+
+        if (!isDragging) return;
+
+        const deltaX = e.clientX- startX
+        const deltaY= e.clientY- startY
+
+        offsetX -= deltaX/ (zoom* mandelbrot.canvas.height*0.5)
+        offsetY += deltaY/ (zoom*mandelbrot.canvas.height*0.5)
+
+        startX= e.clientX
+        startY= e.clientY
+
+        mandelbrot.render(zoom, offsetX, offsetY)})
+
+
+
+    mandelbrot.canvas.addEventListener('mouseup',()=>{
+            isDragging=false})
+
+    
+
+    //for zooming using touchpad
+    mandelbrot.canvas.addEventListener('wheel', (e)=>{
+
+        e.preventDefault() //prevents the whole browser pg from scrolling
+
+        const delta= Math.sign(e.deltaY) //gives direction of the scroll (up or down)
+        const factor= delta > 0 ? 1/1.05 : 1.05 //if scrolling down, zoom out (divide by 1.05), if scrolling up, zoom in (multiply by 1.05)
+        zoom *= factor
+        zoom = Math.max(zoom,0.3)
+
+        mandelbrot.render(zoom, offsetX, offsetY) }, {passive: false}) // passive: false is needed to make preventDefault() work
+
+    
+
+    mandelbrot.canvas.addEventListener('touchmove',(e)=>{
+        if (!isDragging) return;
+
+        const deltaX= e.clientX- startX
+        const deltaY= e.clientY- startY
+
+        offsetX -= deltaX/ (zoom* mandelbrot.canvas.height*0.5)
+        offsetY += deltaY/ (zoom * mandelbrot.canvas.height *0.5)
+
+        startX= e.touches[0].clientX
+        startY= e.touches[0].clientY
+
+        mandelbrot.render(zoom, offsetX, offsetY)})
+
+
+
+    mandelbrot.canvas.addEventListener('touchend',()=>{
+        isDragging=false})
+    
 })
 
 
