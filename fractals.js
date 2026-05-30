@@ -35,18 +35,27 @@ function createFractal(canvasId, fragmentShaderSource) {
 
     const uRes= gl.getUniformLocation(program, 'u_res')
     const uZoom= gl.getUniformLocation(program, 'u_zoom')
-    const uOffset= gl.getUniformLocation(program, 'u_offset')
+    const uOffsetHi= gl.getUniformLocation(program, 'u_offset_hi')
+    const uOffsetLo= gl.getUniformLocation(program, 'u_offset_lo')
 
     const uJulia= gl.getUniformLocation(program, 'u_julia')
 
     function render(zoom, offsetX, offsetY){
+
+        const offsetXHi= Math.fround(offsetX)
+        const offsetXLo= offsetX - offsetXHi
+
+        const offsetYHi= Math.fround(offsetY)
+        const offsetYLo= offsetY - offsetYHi
+
         gl.uniform2f(uRes, canvas.width, canvas.height)
         gl.uniform1f(uZoom, zoom)
-        gl.uniform2f(uOffset, offsetX, offsetY)
+        gl.uniform2f(uOffsetHi, offsetXHi, offsetYHi)
+        gl.uniform2f(uOffsetLo, offsetXLo, offsetYLo)
         gl.drawArrays(gl.TRIANGLES, 0, 6)
     }
 
-    return {gl, canvas, program, uRes, uZoom, uOffset, uJulia, render}
+    return {gl, canvas, program, uRes, uZoom, uOffsetHi, uOffsetLo, uJulia, render}
 }
 
 
@@ -54,7 +63,8 @@ const mandelbrotShader =`
 precision highp float;
 uniform vec2 u_res;
 uniform float u_zoom;
-uniform vec2 u_offset;
+uniform vec2 u_offset_hi;
+uniform vec2 u_offset_lo;
 
 
 void main(){
@@ -226,18 +236,4 @@ window.addEventListener('load',() =>{
         isDragging=false})
     
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
