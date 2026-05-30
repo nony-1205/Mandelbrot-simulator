@@ -36,7 +36,7 @@ function createFractal(canvasId, fragmentShaderSource) {
     const uRes= gl.getUniformLocation(program, 'u_res')
     const uZoom= gl.getUniformLocation(program, 'u_zoom')
     const uOffsetHi= gl.getUniformLocation(program, 'u_offset_hi')
-    const uOffsetLo= gl.getUniformLocation(program, 'u_offset_lo')
+    const uOffsetLo= gl.getUniformLocation(program, 'u_offset_lo') //emulated doulbe precision using two floats (hi and lo)
 
     const uJulia= gl.getUniformLocation(program, 'u_julia')
 
