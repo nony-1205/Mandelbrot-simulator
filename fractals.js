@@ -42,6 +42,8 @@ function createFractal(canvasId, fragmentShaderSource) {
 
     function render(zoom, offsetX, offsetY){
 
+        console.log(canvas.id, 'offsetX:', offsetX)
+
         const offsetXHi= Math.fround(offsetX)
         const offsetXLo= offsetX - offsetXHi
 
@@ -205,7 +207,6 @@ window.addEventListener('load',() =>{
 
     //for zooming using touchpad
     mandelbrot.canvas.addEventListener('wheel', (e)=>{
-        console.log('wheel fired')
 
         e.preventDefault() //prevents the whole browser pg from scrolling
 
@@ -221,7 +222,6 @@ window.addEventListener('load',() =>{
         offsetX= mouseRe- (e.clientX - mandelbrot.canvas.offsetLeft - mandelbrot.canvas.width/2) / (zoom*mandelbrot.canvas.height*0.5)
         offsetY= -(mouseIm+ (e.clientY - mandelbrot.canvas.offsetTop - mandelbrot.canvas.height/2) / (zoom*mandelbrot.canvas.height*0.5))
 
-        console.log('zoom:', zoom)
         mandelbrot.render(zoom, offsetX, offsetY) 
     }, {passive: false}) // passive: false is needed to make preventDefault() work
 
