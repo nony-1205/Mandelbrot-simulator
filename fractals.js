@@ -43,6 +43,7 @@ function createFractal(canvasId, fragmentShaderSource) {
     function render(zoom, offsetX, offsetY){
 
         console.log(canvas.id, 'offsetX:', offsetX)
+        console.log(zoom)
 
         const offsetXHi= Math.fround(offsetX)
         const offsetXLo= offsetX - offsetXHi
