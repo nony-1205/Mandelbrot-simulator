@@ -205,6 +205,7 @@ window.addEventListener('load',() =>{
 
     //for zooming using touchpad
     mandelbrot.canvas.addEventListener('wheel', (e)=>{
+        console.log('wheel fired')
 
         e.preventDefault() //prevents the whole browser pg from scrolling
 
