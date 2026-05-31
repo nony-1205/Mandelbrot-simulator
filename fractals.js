@@ -48,6 +48,9 @@ function createFractal(canvasId, fragmentShaderSource) {
         const offsetYHi= Math.fround(offsetY)
         const offsetYLo= offsetY - offsetYHi
 
+        console.log('offsetX:', offsetX)
+        console.log('hi:', offsetXHi, 'lo:', offsetXLo)
+
         gl.uniform2f(uRes, canvas.width, canvas.height)
         gl.uniform1f(uZoom, zoom)
         gl.uniform2f(uOffsetHi, offsetXHi, offsetYHi)
@@ -69,7 +72,8 @@ uniform vec2 u_offset_lo;
 
 void main(){
     vec2 z= vec2(0.0,0.0); 
-    vec2 c= (gl_FragCoord.xy- u_res *0.5)/ (u_zoom *u_res.y *0.5) + u_offset;
+    vec2 pixel_delta= (gl_FragCoord.xy- u_res *0.5)/ (u_zoom *u_res.y *0.5);
+    vec2 c = u_offset_hi + (pixel_delta + u_offset_lo); 
     vec2 zNew;
     const int maxIter= 200;
     int escapeIter= maxIter;
