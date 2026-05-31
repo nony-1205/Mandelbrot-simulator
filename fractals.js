@@ -213,10 +213,18 @@ window.addEventListener('load',() =>{
 
         const delta= Math.sign(e.deltaY) //gives direction of the scroll (up or down)
         const factor= delta > 0 ? 1/1.05 : 1.05 //if scrolling down, zoom out (divide by 1.05), if scrolling up, zoom in (multiply by 1.05)
+
+        const mouseRe= (e.clientX - mandelbrot.canvas.offsetLeft - mandelbrot.canvas.width/2) / (zoom * mandelbrot.canvas.height*0.5) +offsetX
+        const mouseIm= (e.clientY - mandelbrot.canvas.offsetTop -mandelbrot.canvas.height/2) / (zoom * mandelbrot.canvas.height*0.5) - offsetY
+
         zoom *= factor
         zoom = Math.max(zoom,0.3)
 
-        mandelbrot.render(zoom, offsetX, offsetY) }, {passive: false}) // passive: false is needed to make preventDefault() work
+        offsetX= mouseRe- (e.clientX - mandelbrot.canvas.offsetLeft - mandelbrot.canvas.width/2) / (zoom*mandelbrot.canvas.height*0.5)
+        offsetY= -(mouseIm+ (e.clientY - mandelbrot.canvas.offsetTop - mandelbrot.canvas.height/2) / (zoom*mandelbrot.canvas.height*0.5))
+
+        mandelbrot.render(zoom, offsetX, offsetY) 
+    }, {passive: false}) // passive: false is needed to make preventDefault() work
 
     
 
