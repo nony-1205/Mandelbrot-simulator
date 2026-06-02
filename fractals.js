@@ -218,8 +218,8 @@ window.addEventListener('load',() =>{
         zoom *= factor
         zoom = Math.max(zoom,0.3)
 
-        offsetX= mouseRe- (e.clientX - mandelbrot.canvas.offsetLeft - mandelbrot.canvas.width/2) / (zoom*mandelbrot.canvas.height*0.5)
-        offsetY= -(mouseIm+ (e.clientY - mandelbrot.canvas.offsetTop - mandelbrot.canvas.height/2) / (zoom*mandelbrot.canvas.height*0.5))
+        // offsetX= mouseRe- (e.clientX - mandelbrot.canvas.offsetLeft - mandelbrot.canvas.width/2) / (zoom*mandelbrot.canvas.height*0.5)
+        // offsetY= -(mouseIm+ (e.clientY - mandelbrot.canvas.offsetTop - mandelbrot.canvas.height/2) / (zoom*mandelbrot.canvas.height*0.5))
 
         mandelbrot.render(zoom, offsetX, offsetY) 
     }, {passive: false}) // passive: false is needed to make preventDefault() work
