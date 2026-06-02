@@ -261,6 +261,8 @@ window.addEventListener('load',() =>{
         offsetX= mouseRe- (e.clientX - mandelbrot.canvas.offsetLeft - mandelbrot.canvas.width/2) / (zoom*mandelbrot.canvas.height*0.5)
         offsetY= -mouseIm+ (e.clientY - mandelbrot.canvas.offsetTop - mandelbrot.canvas.height/2) / (zoom*mandelbrot.canvas.height*0.5)
 
+        console.log('zoom: ',zoom)
+
         mandelbrot.render(zoom, offsetX, offsetY) 
     }, {passive: false}) 
 
