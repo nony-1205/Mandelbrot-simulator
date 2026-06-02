@@ -208,15 +208,12 @@ window.addEventListener('load',() =>{
     //for zooming using touchpad
     mandelbrot.canvas.addEventListener('wheel', (e)=>{
 
-        if (!e.ctrlKey) return  // ignore pan gestures, only handle pinch zoom
-
         e.preventDefault() //prevents the whole browser pg from scrolling
+
+        if (!e.ctrlKey) return  // ignore pan gestures, only handle pinch zoom
 
         const delta= Math.sign(e.deltaY) //gives direction of the scroll (up or down)
         const factor= delta > 0 ? 1/1.05 : 1.05 //if scrolling down, zoom out (divide by 1.05), if scrolling up, zoom in (multiply by 1.05)
-
-        const mouseRe= (e.clientX - mandelbrot.canvas.offsetLeft - mandelbrot.canvas.width/2) / (zoom * mandelbrot.canvas.height*0.5) +offsetX
-        const mouseIm= (e.clientY - mandelbrot.canvas.offsetTop -mandelbrot.canvas.height/2) / (zoom * mandelbrot.canvas.height*0.5) - offsetY
 
         zoom *= factor
         zoom = Math.max(zoom,0.3)
