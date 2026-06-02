@@ -177,7 +177,7 @@ window.addEventListener('load',() =>{
             const re= (e.clientX - mandelbrot.canvas.offsetLeft - mandelbrot.canvas.width/2) / (zoom * mandelbrot.canvas.height*0.5) +offsetX
             const im= (e.clientY - mandelbrot.canvas.offsetTop -mandelbrot.canvas.height/2) / (zoom * mandelbrot.canvas.height*0.5) - offsetY
 
-            console.log('re:', re, 'im:', im)
+            // console.log('re:', re, 'im:', im)
 
             julia.gl.useProgram(julia.program)
             julia.gl.uniform2f(julia.uJulia, re, im)
