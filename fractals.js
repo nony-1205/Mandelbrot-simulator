@@ -65,7 +65,6 @@ uniform vec2 u_res;
 uniform float u_zoom;
 uniform vec2 u_offset_hi;
 uniform vec2 u_offset_lo;
-vec2 z_single = vec2(0.0);
 
 vec2 ds_add(vec2 a, vec2 b) {
     float s = a.x + b.x;        // normal float add (rounded)
@@ -92,6 +91,9 @@ vec2 ds_set(float a){
 
 
 void main(){
+
+    vec2 z_single = vec2(0.0);
+
     vec2 pixel_delta= (gl_FragCoord.xy- u_res *0.5)/ (u_zoom *u_res.y *0.5);
 
     vec2 cx = ds_add(u_offset_hi.x, u_offset_lo.x), ds_set(pixel_delta.x);
