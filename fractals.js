@@ -76,13 +76,12 @@ vec2 ds_add(vec2 a, vec2 b) {
 }
 
 
-vec2 ds_mul(vec2 a, vec2 b){
-    float hihi= a.x*b.x; //hi*hi
-    float cross= a.x*b.y + a.y*b.x; //hi*lo + lo*hi
-    float roundedsum= hihi + cross; //rounded sum of hi*hi and cross terms
-    float error = cross - (roundedsum - hihi); //error in the rounded sum
-    return vec2(roundedsum, error + a.y*b.y); //final result with hi and lo parts
-
+vec2 ds_mul(vec2 a, vec2 b) {
+    float c11 = a.x * b.x;
+    float c21 = a.x * b.y + a.y * b.x;
+    float t1 = c11 + c21;
+    float t2 = c21 - (t1 - c11);
+    return vec2(t1, t2 + a.y * b.y);
 }
 
 
