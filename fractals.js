@@ -104,7 +104,6 @@ void main(){
     vec2 zx= vec2(0.0,0.0);
     vec2 zy= vec2(0.0,0.0);
 
-    vec2 zNew;
     const int maxIter= 200;
     int escapeIter= maxIter;
 
