@@ -65,6 +65,7 @@ uniform vec2 u_res;
 uniform float u_zoom;
 uniform vec2 u_offset_hi;
 uniform vec2 u_offset_lo;
+vec2 z_single = vec2(0.0);
 
 vec2 ds_add(vec2 a, vec2 b) {
     float s = a.x + b.x;        // normal float add (rounded)
@@ -111,6 +112,7 @@ void main(){
 
         if (zx2.x +zy2.x >4.0){ //only .x and not .x+.y cuz the lo parts (zx2.y,zy2.y) are tiny and when adding them makes litreally no difference
             escapeIter= i; 
+            z_single = vec2(zx.x, zy.x); //store the single precision value of z at escape time for smooth coloring
             break;
         }
         
@@ -124,7 +126,7 @@ void main(){
     }
         
         float t= (escapeIter< maxIter)
-            ? (float(escapeIter) - log2(log2(dot(z,z))) +4.0) / float(maxIter)
+            ? (float(escapeIter) - log2(log2(max(dot(z_single,z_single), 0.1)))) / float(maxIter)
             : 0.0;
         float r = 0.5 + 0.5*cos(6.28318 *(3.0 * t + 0.30));
         float g = 0.5 + 0.5*cos(6.28318 * (3.0 * t +0.23));
