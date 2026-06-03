@@ -106,13 +106,13 @@ void main(){
     int escapeIter= maxIter;
 
     for (int i=0; i<maxIter; i++){
-        zNew.x= z.x*z.x - z.y*z.y +c.x; //the real part
-        zNew.y = 2.0*z.x*z.y +c.y; //the imaginary part
-        z=zNew; //overwrites the old coordinates w new ones 
-        if (z.x*z.x +z.y*z.y > 4.0) {
-            escapeIter= i;
+        vec2 zx2= ds_mul(zx,zx); 
+        vec2 zy2= ds_mul(zy,zy);
+
+        if (zx2.x +zy2.x >4.0){ //only .x and not .x+.y cuz the lo parts (zx2.y,zy2.y) are tiny and when adding them makes litreally no difference
+            escapeIter= i; 
             break;
-            }
+        }
         }
         
         float t= (escapeIter< maxIter)
