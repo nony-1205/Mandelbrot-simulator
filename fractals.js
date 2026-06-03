@@ -66,10 +66,16 @@ uniform float u_zoom;
 uniform vec2 u_offset_hi;
 uniform vec2 u_offset_lo;
 
-vec2 ds_add(vec2 a, vec2 b){
-    float s = a.x +b.x;
-    float     
+vec2 ds_add(vec2 a, vec2 b) {
+    float s = a.x + b.x;        // normal float add (rounded)
+    float v = s - a.x;          // how much b.x contributed
+    float e = (a.x - (s - v))   // rounding error from a.x
+            + (b.x - v)         // rounding error from b.x
+            + a.y + b.y;        // add the existing lo parts
+    return vec2(s + e, e - ((s + e) - s));
 }
+
+
 
 
 void main(){
