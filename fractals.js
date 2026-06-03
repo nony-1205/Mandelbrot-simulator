@@ -66,6 +66,11 @@ uniform float u_zoom;
 uniform vec2 u_offset_hi;
 uniform vec2 u_offset_lo;
 
+vec2 ds_add(vec2 a, vec2 b){
+    float s = a.x +b.x;
+    float     
+}
+
 
 void main(){
     vec2 z= vec2(0.0,0.0); 
