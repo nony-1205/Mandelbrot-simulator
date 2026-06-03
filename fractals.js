@@ -96,7 +96,7 @@ void main(){
     vec2 cx = ds_add(u_offset_hi.x, u_offset_lo.x), ds_set(pixel_delta.x);
     vec2 cy= ds_add(u_offset_hi.y, u_offset_lo.y), ds_set(pixel_delta.y);
 
-    //cx and cy are now seperate cuz one is for the real axis and one is for the y axis
+    //cx and cy are now seperate cuz one is for the real axis and one is for the y axis, each has a hi lo pair
     
     vec2 zx= vec2(0.0,0.0);
     vec2 cy= vec2(0.0,0.0);
