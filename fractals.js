@@ -113,7 +113,15 @@ void main(){
             escapeIter= i; 
             break;
         }
-        }
+        
+        vec2 zx_new = ds_add(ds_add(zx2, vec2(-zy2.x, -zy2.y)), cx); //zx^2 - zy^2 + cx
+
+        vec2 zx_zy= ds_mul(zx,zy);
+        vec2 zy_new = ds_add(ds_add(zx_zy, zx_zy), cy); //2*zx*zy + cy
+
+        zx= zx_new;
+        zy= zy_new;
+    }
         
         float t= (escapeIter< maxIter)
             ? (float(escapeIter) - log2(log2(dot(z,z))) +4.0) / float(maxIter)
