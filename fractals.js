@@ -96,13 +96,13 @@ void main(){
 
     vec2 pixel_delta= (gl_FragCoord.xy- u_res *0.5)/ (u_zoom *u_res.y *0.5);
 
-    vec2 cx = ds_add(u_offset_hi.x, u_offset_lo.x), ds_set(pixel_delta.x);
-    vec2 cy= ds_add(u_offset_hi.y, u_offset_lo.y), ds_set(pixel_delta.y);
+    vec2 cx = ds_add(vec2(u_offset_hi.x, u_offset_lo.x), ds_set(pixel_delta.x));
+    vec2 cy = ds_add(vec2(u_offset_hi.y, u_offset_lo.y), ds_set(pixel_delta.y));
 
     //cx and cy are now seperate cuz one is for the real axis and one is for the y axis, each has a hi lo pair
     
     vec2 zx= vec2(0.0,0.0);
-    vec2 cy= vec2(0.0,0.0);
+    vec2 zy= vec2(0.0,0.0);
 
     vec2 zNew;
     const int maxIter= 200;
@@ -128,7 +128,7 @@ void main(){
     }
         
         float t= (escapeIter< maxIter)
-            ? (float(escapeIter) - log2(log2(max(dot(z_single,z_single), 0.1)))) / float(maxIter)
+            ? (float(escapeIter) - log2(log2(max(dot(z_single,z_single), 0.1))) +4.0) / float(maxIter)
             : 0.0;
         float r = 0.5 + 0.5*cos(6.28318 *(3.0 * t + 0.30));
         float g = 0.5 + 0.5*cos(6.28318 * (3.0 * t +0.23));
