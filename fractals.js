@@ -91,9 +91,16 @@ vec2 ds_set(float a){
 
 
 void main(){
-    vec2 z= vec2(0.0,0.0); 
     vec2 pixel_delta= (gl_FragCoord.xy- u_res *0.5)/ (u_zoom *u_res.y *0.5);
-    vec2 c = u_offset_hi + (pixel_delta + u_offset_lo); 
+
+    vec2 cx = ds_add(u_offset_hi.x, u_offset_lo.x), ds_set(pixel_delta.x);
+    vec2 cy= ds_add(u_offset_hi.y, u_offset_lo.y), ds_set(pixel_delta.y);
+
+    //cx and cy are now seperate cuz one is for the real axis and one is for the y axis
+    
+    vec2 zx= vec2(0.0,0.0);
+    vec2 cy= vec2(0.0,0.0);
+
     vec2 zNew;
     const int maxIter= 200;
     int escapeIter= maxIter;
