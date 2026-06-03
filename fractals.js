@@ -75,7 +75,12 @@ vec2 ds_add(vec2 a, vec2 b) {
     return vec2(s + e, e - ((s + e) - s));
 }
 
+vec2 ds_mul(vec2 a, vec2 b){
+    float hihi= a.x*b.x; //hi*hi
+    float cross= a.x*b.y + a.y*b.x; //hi*lo + lo*hi
+    float 
 
+}
 
 
 void main(){
