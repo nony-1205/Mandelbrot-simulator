@@ -40,7 +40,7 @@ function createFractal(canvasId, fragmentShaderSource) {
 
     const uJulia= gl.getUniformLocation(program, 'u_julia')
 
-    function render(zoom, offsetX, offsetY){
+    function render(zoom, offsetX, offsetY, u_time){
 
         const offsetXHi= Math.fround(offsetX)
         const offsetXLo= offsetX - offsetXHi
@@ -203,7 +203,7 @@ window.addEventListener('load',() =>{
 
     const mandelbrot = createFractal('mandelbrot', mandelbrotShader)
     const julia= createFractal('julia', juliaShader)
-    mandelbrot.render(zoom, offsetX, offsetY)
+    mandelbrot.render(zoom, offsetX, offsetY, timeoffset)
 
 
     mandelbrot.canvas.addEventListener('mousedown', (e)=>{
@@ -227,7 +227,7 @@ window.addEventListener('load',() =>{
 
             julia.gl.useProgram(julia.program)
             julia.gl.uniform2f(julia.uJulia, re, im)
-            julia.render(1.0, 0.0, 0.0)
+            julia.render(1.0, 0.0, 0.0, timeoffset)
         
         }
 
@@ -242,7 +242,7 @@ window.addEventListener('load',() =>{
         startX= e.clientX
         startY= e.clientY
 
-        mandelbrot.render(zoom, offsetX, offsetY)})
+        mandelbrot.render(zoom, offsetX, offsetY, timeoffset)})
 
 
 
@@ -276,7 +276,7 @@ window.addEventListener('load',() =>{
 
         console.log('zoom:', zoom)
 
-        mandelbrot.render(zoom, offsetX, offsetY) 
+        mandelbrot.render(zoom, offsetX, offsetY, timeoffset) 
     }, {passive: false}) // passive: false is needed to make preventDefault() work
 
     
@@ -293,7 +293,7 @@ window.addEventListener('load',() =>{
         startX= e.touches[0].clientX
         startY= e.touches[0].clientY
 
-        mandelbrot.render(zoom, offsetX, offsetY)})
+        mandelbrot.render(zoom, offsetX, offsetY, timeoffset)})
 
 
 
