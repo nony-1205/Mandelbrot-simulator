@@ -39,7 +39,6 @@ function createFractal(canvasId, fragmentShaderSource) {
     const uOffsetLo= gl.getUniformLocation(program, 'u_offset_lo') //emulated doulbe precision using two floats (hi and lo)
 
     const uJulia= gl.getUniformLocation(program, 'u_julia')
-    const u_time= gl.getUniformLocation(program, 'u_time')
 
     function render(zoom, offsetX, offsetY){
 
@@ -56,7 +55,7 @@ function createFractal(canvasId, fragmentShaderSource) {
         gl.drawArrays(gl.TRIANGLES, 0, 6)
     }
 
-    return {gl, canvas, program, uRes, uZoom, uOffsetHi, uOffsetLo, uJulia, u_time, render}
+    return {gl, canvas, program, uRes, uZoom, uOffsetHi, uOffsetLo, uJulia, render}
 }
 
 
