@@ -154,6 +154,7 @@ uniform vec2 u_res;
 uniform float u_zoom;
 uniform vec2 u_offset;
 uniform vec2 u_julia; //the constant c in the formula z= z^2 +c
+uniform float u_time;
 
 void main(){
     vec2 c= u_julia;
@@ -175,9 +176,9 @@ void main(){
         float t= (escapeIter< maxIter)
             ? (float(escapeIter) - log2(log2(dot(z,z))) +4.0) / float(maxIter)
             : 0.0;
-        float r = 0.5 + 0.5*cos(6.28318 *(3.0 * t + 0.30));
-        float g = 0.5 + 0.5*cos(6.28318 * (3.0 * t +0.23));
-        float b = 0.5 + 0.5*cos(6.28318 * (3.0 * t +0.87));
+        float r = 0.5 + 0.5*cos(6.28318 *(3.0 * t + u_time));
+        float g = 0.5 + 0.5*cos(6.28318 * (3.0 * t +u_time));
+        float b = 0.5 + 0.5*cos(6.28318 * (3.0 * t +u_time));
 
         if (escapeIter==maxIter){
             gl_FragColor= vec4(0.0, 0.0, 0.0, 1.0); //pure black
