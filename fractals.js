@@ -299,6 +299,13 @@ window.addEventListener('load',() =>{
 
     mandelbrot.canvas.addEventListener('touchend',()=>{
         isDragging=false})
+
+    function loop(){
+        if (animating){
+            timeoffset+=0.01
+            render()
+    }
+    requestAnimationFrame(loop)}
     
 })
 
