@@ -41,12 +41,12 @@ body {
 }
 
 #info p {
-    margin: 0;
+    margin: 10px 0;
 }
 
 
 #info-zoom{
-    margin-top: 40px;
+    margin-top: 80px;
 }
 
 #julia-container {
