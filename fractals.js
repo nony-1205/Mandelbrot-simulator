@@ -262,6 +262,7 @@ window.addEventListener('load',() =>{
 
         zoom *= factor
         zoom = Math.max(zoom,0.3)
+        zoom= Math.min(zoom, 390000)
 
         document.getElementById('info-zoom').textContent= zoom.toFixed(0)
 
