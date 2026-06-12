@@ -175,7 +175,7 @@ void main(){
         float t= (escapeIter< maxIter)
             ? (float(escapeIter) - log2(log2(dot(z,z))) +4.0) / float(maxIter)
             : 0.0;
-        float r = 0.5 + 0.5*cos(6.28318 *(3.0 * t + 0.30));
+        float r = 0.5 + 0.5*cos(6.28318 *(3.0 * t + u_time));
         float g = 0.5 + 0.5*cos(6.28318 * (3.0 * t +0.23));
         float b = 0.5 + 0.5*cos(6.28318 * (3.0 * t +0.87));
 
