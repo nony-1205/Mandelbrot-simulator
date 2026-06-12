@@ -65,6 +65,7 @@ uniform vec2 u_res;
 uniform float u_zoom;
 uniform vec2 u_offset_hi;
 uniform vec2 u_offset_lo;
+uniform float u_time;
 
 vec2 ds_add(vec2 a, vec2 b) {
     float s = a.x + b.x;        // normal float add (rounded)
@@ -193,6 +194,8 @@ let offsetY= 0.0;
 let isDragging= false;
 let startX= 0;
 let startY= 0;
+let animating=false;
+let timeoffset=0.0;
 
 
 window.addEventListener('load',() =>{
