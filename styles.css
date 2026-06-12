@@ -31,11 +31,11 @@ body {
 
 #info {
     background: #1a2a3a;
-    padding: 16px;
+    padding: 20px;
     border: 2px solid white;
     color: white;
     font-family: monospace;
-    font-size: 13px;
+    font-size: 20px;
     line-height: 2;
     flex: none;
 }
