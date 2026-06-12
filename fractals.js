@@ -215,6 +215,10 @@ window.addEventListener('load',() =>{
             const re= (e.clientX - mandelbrot.canvas.offsetLeft - mandelbrot.canvas.width/2) / (zoom * mandelbrot.canvas.height*0.5) +offsetX
             const im= (e.clientY - mandelbrot.canvas.offsetTop -mandelbrot.canvas.height/2) / (zoom * mandelbrot.canvas.height*0.5) - offsetY
 
+            document.getElementById('info-re').textContent= re.toFixed(5)
+            document.getElementById('info-im').textContent= im.toFixed(5)
+            document.getElementById('info-zoom').textContent= zoom.toFixed(5)
+
             // console.log('re:', re, 'im:', im)
 
             julia.gl.useProgram(julia.program)
