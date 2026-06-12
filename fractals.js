@@ -217,7 +217,7 @@ window.addEventListener('load',() =>{
 
             document.getElementById('info-re').textContent= re.toFixed(5)
             document.getElementById('info-im').textContent= im.toFixed(5)
-            document.getElementById('info-zoom').textContent= zoom.toFixed(5)
+            document.getElementById('info-zoom').textContent= zoom.toFixed(0)
 
             // console.log('re:', re, 'im:', im)
 
