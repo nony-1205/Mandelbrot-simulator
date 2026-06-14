@@ -302,9 +302,24 @@ window.addEventListener('load',() =>{
     mandelbrot.canvas.addEventListener('touchend',()=>{
         isDragging=false})
 
+
     document.getElementById('animate').addEventListener('click', ()=>{
         animating= !animating
     })
+
+    
+    window.addEventListener('resize', ()=>{
+        mandelbrot.canvas.width= mandelbrot.canvas.parentElement.offsetWidth
+        mandelbrot.canvas.height= mandelbrot.canvas.parentElement.offsetHeight
+        mandelbrot.gl.viewport(0,0, mandelbrot.canvas.width, mandelbrot.canvas.height)
+
+        julia.canvas.width= julia.canvas.parentElement.offsetWidth
+        julia.canvas.height= julia.canvas.parentElement.offsetHeight
+        julia.gl.viewport(0,0, julia.canvas.width, julia.canvas.height)
+
+        mandelbrot.render(zoom, offsetX, offsetY, timeoffset)
+    })
+
 
     function loop(){
         if (animating){
