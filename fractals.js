@@ -209,6 +209,7 @@ window.addEventListener('load',() =>{
 
     mandelbrot.canvas.addEventListener('mousedown', (e)=>{
         isDragging= true;
+        animating= false;
         startX= e.clientX;
         startY= e.clientY;})
 
@@ -310,6 +311,7 @@ window.addEventListener('load',() =>{
             timeoffset+=0.01
             mandelbrot.render(zoom, offsetX, offsetY, timeoffset)
         }
+        requestAnimationFrame(loop)
     }
     requestAnimationFrame(loop)
 
