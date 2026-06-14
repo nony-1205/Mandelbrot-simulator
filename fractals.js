@@ -301,6 +301,10 @@ window.addEventListener('load',() =>{
     mandelbrot.canvas.addEventListener('touchend',()=>{
         isDragging=false})
 
+    document.getElementById('animate').addEventListener('click', ()=>{
+        animating= !animating
+    })
+
     function loop(){
         if (animating){
             timeoffset+=0.01
