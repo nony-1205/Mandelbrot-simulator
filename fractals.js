@@ -37,8 +37,8 @@ function createFractal(canvasId, fragmentShaderSource) {
     const uZoom= gl.getUniformLocation(program, 'u_zoom')
     const uOffsetHi= gl.getUniformLocation(program, 'u_offset_hi')
     const uOffsetLo= gl.getUniformLocation(program, 'u_offset_lo') //emulated doulbe precision using two floats (hi and lo)
-
     const uJulia= gl.getUniformLocation(program, 'u_julia')
+    const uTime= gl.getUniformLocation(program, 'u_time')
 
     function render(zoom, offsetX, offsetY, u_time){
 
@@ -52,6 +52,7 @@ function createFractal(canvasId, fragmentShaderSource) {
         gl.uniform1f(uZoom, zoom)
         gl.uniform2f(uOffsetHi, offsetXHi, offsetYHi)
         gl.uniform2f(uOffsetLo, offsetXLo, offsetYLo)
+        gl.uniform1f(uTime, u_time)
         gl.drawArrays(gl.TRIANGLES, 0, 6)
     }
 
@@ -129,9 +130,9 @@ void main(){
         float t= (escapeIter< maxIter)
             ? (float(escapeIter) - log2(log2(max(dot(z_single,z_single), 0.1))) +4.0) / float(maxIter)
             : 0.0;
-        float r = 0.5 + 0.5*cos(6.28318 *(3.0 * t + u_time));
-        float g = 0.5 + 0.5*cos(6.28318 * (3.0 * t +u_time));
-        float b = 0.5 + 0.5*cos(6.28318 * (3.0 * t +u_time));
+        float r = 0.5 + 0.5*cos(6.28318 *(3.0 * t + 0.30 +  u_time));
+        float g = 0.5 + 0.5*cos(6.28318 * (3.0 * t + 0.23 + u_time));
+        float b = 0.5 + 0.5*cos(6.28318 * (3.0 * t + 0.87 + u_time));
 
         if (escapeIter==maxIter){
             gl_FragColor= vec4(0.0, 0.0, 0.0, 1.0); //pure black
@@ -176,9 +177,9 @@ void main(){
         float t= (escapeIter< maxIter)
             ? (float(escapeIter) - log2(log2(dot(z,z))) +4.0) / float(maxIter)
             : 0.0;
-        float r = 0.5 + 0.5*cos(6.28318 *(3.0 * t + u_time));
-        float g = 0.5 + 0.5*cos(6.28318 * (3.0 * t +u_time));
-        float b = 0.5 + 0.5*cos(6.28318 * (3.0 * t +u_time));
+        float r = 0.5 + 0.5*cos(6.28318 *(3.0 * t + 0.30 +  u_time));
+        float g = 0.5 + 0.5*cos(6.28318 * (3.0 * t + 0.23 + u_time));
+        float b = 0.5 + 0.5*cos(6.28318 * (3.0 * t + 0.87 + u_time));
 
         if (escapeIter==maxIter){
             gl_FragColor= vec4(0.0, 0.0, 0.0, 1.0); //pure black
