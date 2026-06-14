@@ -105,7 +105,7 @@ void main(){
     vec2 zx= vec2(0.0,0.0);
     vec2 zy= vec2(0.0,0.0);
 
-    const int maxIter= 200;
+    const int maxIter= 700;
     int escapeIter= maxIter;
 
     for (int i=0; i<maxIter; i++){
@@ -161,7 +161,7 @@ void main(){
     vec2 c= u_julia;
     vec2 z= (gl_FragCoord.xy- u_res *0.5)/ (u_zoom *u_res.y *0.5);
     vec2 zNew;
-    const int maxIter= 200;
+    const int maxIter= 700;
     int escapeIter= maxIter;
 
     for (int i=0; i<maxIter; i++){
