@@ -35,18 +35,44 @@ body {
     border: 2px solid white;
     color: white;
     font-family: monospace;
-    font-size: 20px;
-    line-height: 2;
+    font-size: 13px;
     flex: none;
 }
 
-#info p {
-    margin: 10px 0;
+#info h3 {
+    margin: 0 0 12px 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #aab4be;
 }
 
+#info p {
+    margin: 0 0 8px 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
 
-#info-zoom{
-    margin-top: 80px;
+#info span {
+    color: #7dd3fc;
+}
+
+#animate {
+    margin-top: 16px;
+    width: 100%;
+    padding: 8px;
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    font-family: monospace;
+    font-size: 13px;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+
+#animate:hover {
+    background: rgba(255,255,255,0.1);
 }
 
 #julia-container {
