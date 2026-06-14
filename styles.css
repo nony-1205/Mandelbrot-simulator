@@ -4,7 +4,7 @@ body {
     gap: 40px;
     display: flex;
     height: 100vh;
-    background: #444;
+    background: #3c233a;
     box-sizing: border-box;
     overflow: hidden;
 }
@@ -30,7 +30,7 @@ body {
 }
 
 #info {
-    background: #1a2a3a;
+    background: #ff4fb0;
     padding: 20px;
     border: 2px solid white;
     color: white;
