@@ -303,9 +303,10 @@ window.addEventListener('load',() =>{
     function loop(){
         if (animating){
             timeoffset+=0.01
-            render()
+            mandelbrot.render(zoom, offsetX, offsetY, timeoffset)
+        }
     }
-    requestAnimationFrame(loop)}
-    
+    requestAnimationFrame(loop)
+
 })
 
