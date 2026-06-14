@@ -308,7 +308,7 @@ window.addEventListener('load',() =>{
 
     function loop(){
         if (animating){
-            timeoffset+=0.01
+            timeoffset+=0.005
             mandelbrot.render(zoom, offsetX, offsetY, timeoffset)
             julia.render(1.0, 0.0, 0.0, timeoffset)
         }
